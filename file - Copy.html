@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy Teachers' Day - Sir Randy Bello</title>
+
+  <style>
+    :root {
+      --blue: #0038a8;
+      --red: #ce1126;
+      --yellow: #fcd116;
+      --white: #ffffff;
+      --ink: #16304d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, #fff8cc 0 8%, transparent 9%),
+        linear-gradient(135deg, #d9f4ff, #fff7d6);
+    }
+
+    .card {
+      position: relative;
+      width: min(720px, 100%);
+      min-height: 650px;
+      padding: 42px 34px;
+      overflow: hidden;
+      text-align: center;
+      border: 6px solid var(--white);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 25px 70px rgba(0, 56, 168, 0.25);
+      animation: cardEntrance 1s ease both;
+    }
+
+    .card::before,
+    .card::after {
+      position: absolute;
+      content: "";
+      width: 230px;
+      height: 230px;
+      z-index: 0;
+      transform: rotate(45deg);
+    }
+
+    .card::before {
+      top: -145px;
+      left: -115px;
+      background: var(--blue);
+    }
+
+    .card::after {
+      right: -115px;
+      bottom: -145px;
+      background: var(--red);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .sun {
+      position: absolute;
+      top: 25px;
+      right: 28px;
+      z-index: 1;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 25px rgba(252, 209, 22, 0.8);
+      animation: pulse 2s infinite;
+    }
+
+    .sun::before,
+    .sun::after {
+      position: absolute;
+      inset: -14px;
+      content: "";
+      border: 4px dashed var(--yellow);
+      border-radius: 50%;
+      animation: spin 12s linear infinite;
+    }
+
+    .sun::after {
+      inset: -25px;
+      border-width: 2px;
+      animation-direction: reverse;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 18px;
+      color: var(--white);
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+    }
+
+    h1 {
+      margin: 22px 0 5px;
+      color: var(--blue);
+      font-size: clamp(2rem, 7vw, 4rem);
+      line-height: 1;
+      text-shadow: 3px 3px 0 #ffe783;
+    }
+
+    h2 {
+      margin: 8px 0 22px;
+      color: var(--red);
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 24px;
+      padding: 7px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--blue) 0 33%,
+        var(--red) 33% 66%,
+        var(--yellow) 66% 100%
+      );
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border: 6px solid var(--white);
+      border-radius: 50%;
+      background: #edf2f7;
+    }
+
+    .message {
+      max-width: 580px;
+      min-height: 90px;
+      margin: 0 auto 22px;
+      padding: 20px;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      border-left: 5px solid var(--yellow);
+      border-radius: 14px;
+      background: #fff9dc;
+      outline: none;
+    }
+
+    .message:focus {
+      box-shadow: 0 0 0 3px rgba(252, 209, 22, 0.4);
+    }
+
+    .signature {
+      margin-bottom: 25px;
+      color: var(--red);
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .button,
+    label.button {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 12px;
+      color: var(--white);
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--blue);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button.red {
+      background: var(--red);
+    }
+
+    .button.yellow {
+      color: #513d00;
+      background: var(--yellow);
+    }
+
+    .button:hover,
+    label.button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    audio {
+      width: min(420px, 100%);
+      margin-top: 18px;
+      display: none;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      z-index: 20;
+      width: 10px;
+      height: 18px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(1deg);
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 55px 18px 30px;
+        border-radius: 22px;
+      }
+
+      .photo-frame {
+        width: 150px;
+        height: 150px;
+      }
+
+      .button,
+      label.button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="sun"></div>
+
+    <section class="content">
+      <div class="badge">Mabuhay ang mga Guro!</div>
+
+      <h1>Happy Teachers' Day!</h1>
+      <h2 contenteditable="true">Sir Randy Bello</h2>
+
+      <div class="photo-frame">
+        <img
+          id="teacherPhoto"
+          alt="Photo of Sir Randy Bello"
+          src="data:image/svg+xml,%3Csvg xmlns='[w3.org](http://www.w3.org/2000/svg)' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23e6eef8'/%3E%3Ccircle cx='150' cy='105' r='55' fill='%2395a9bf'/%3E%3Cpath d='M50 290c8-83 50-120 100-120s92 37 100 120' fill='%2395a9bf'/%3E%3Ctext x='150' y='275' text-anchor='middle' font-family='Arial' font-size='18' fill='%2316304d'%3EAdd Photo%3C/text%3E%3C/svg%3E"
+        >
+      </div>
+
+      <div class="message" contenteditable="true">
+        Maraming salamat po, Sir Randy Bello, for your patience,
+        dedication, and guidance. You inspire us to learn, dream, and
+        become better every day. Maligayang Araw ng mga Guro!
+      </div>
+
+      <div class="signature" contenteditable="true">
+        With gratitude, from your students
+      </div>
+
+      <div class="controls">
+        <label class="button" for="photoInput">Add Photo</label>
+        <input id="photoInput" type="file" accept="image/*">
+
+        <label class="button red" for="audioInput">Add Audio</label>
+        <input id="audioInput" type="file" accept="audio/*">
+
+        <button class="button yellow" id="celebrateButton" type="button">
+          Celebrate!
+        </button>
+      </div>
+
+      <audio id="musicPlayer" controls></audio>
+    </section>
+  </main>
+
+  <script>
+    const photoInput = document.getElementById("photoInput");
+    const audioInput = document.getElementById("audioInput");
+    const teacherPhoto = document.getElementById("teacherPhoto");
+    const musicPlayer = document.getElementById("musicPlayer");
+    const celebrateButton = document.getElementById("celebrateButton");
+
+    photoInput.addEventListener("change", function () {
+      const photo = this.files[0];
+
+      if (!photo) return;
+
+      teacherPhoto.src = URL.createObjectURL(photo);
+    });
+
+    audioInput.addEventListener("change", function () {
+      const audio = this.files[0];
+
+      if (!audio) return;
+
+      musicPlayer.src = URL.createObjectURL(audio);
+      musicPlayer.style.display = "inline-block";
+      musicPlayer.play().catch(() => {
+        // The browser may require the user to press Play.
+      });
+    });
+
+    celebrateButton.addEventListener("click", () => {
+      createConfetti(100);
+
+      if (musicPlayer.src) {
+        musicPlayer.play().catch(() => {});
+      }
+    });
+
+    function createConfetti(amount) {
+      const colors = ["#0038a8", "#ce1126", "#fcd116", "#ffffff"];
+
+      for (let i = 0; i < amount; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = 2 + Math.random() * 3 + "s";
+        piece.style.animationDelay = Math.random() * 0.8 + "s";
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 6000);
+      }
+    }
+
+    window.addEventListener("load", () => createConfetti(45));
+  </script>
+</body>
+</html>
